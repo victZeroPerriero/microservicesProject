@@ -13,7 +13,7 @@ spring:
         git:
           uri: https://github.com/victZeroPerriero/ms-config-properties
           search-paths:
-            - "ms-config-properties/{application}/{profile}"
+            - "/{application}/{profile}"
 
 server:
   port: 8888
