@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @Data
 @Builder
 @AllArgsConstructor
-@Document(collation = "books")
+@Document(collection = "books" )
 public class Book {
     @Id
     private String id;

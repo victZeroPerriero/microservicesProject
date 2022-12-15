@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class BooksController {
-    private Environment environment;
+    private final Environment environment;
     private final BookService bookService;
 
     @RequestMapping(path = "/")
