@@ -1,4 +1,5 @@
 spring:
+  profiles: default
   application:
     name: eureka-server
 
@@ -7,12 +8,65 @@ server:
 
 eureka:
   client:
+    register-with-eureka: false
     fetch-registry: false
-    enabled: true
+    instance-info-replication-interval-seconds: 10
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-      register-with-eureka: false
-
-
+  server:
+    eviction-interval-timer-in-ms: 50000
+    wait-time-in-ms-when-sync-empty: 5
   instance:
-    hostname: my-eureka-server.com
+    hostname: eureka-server.com
+---
+spring:
+  profiles: australia
+  application:
+    name: eureka-server-clustered
+server:
+  port: 9001
+eureka:
+  instance:
+    hostname: eureka-server-au.com
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-server-en.com:9002/eureka/
+---
+
+spring:
+  profiles: england
+  application:
+    name: eureka-server-clustered
+server:
+  port: 9002
+eureka:
+  instance:
+    hostname: eureka-server-en.com
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-server-au.com:9001/eureka/
+
+
+
+#spring:
+#  application:
+#    name: eureka-server
+#
+#server:
+#  port: ${PORT:8761}
+#
+#eureka:
+#  client:
+#    fetch-registry: false
+#    enabled: true
+#    serviceUrl:
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+#      register-with-eureka: false
+#
+#
+#  instance:
+#    hostname: my-eureka-server.com
